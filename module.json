@@ -28,6 +28,7 @@
    "values":{
       "Pads":{
          "type":"Container",
+         "collapsed":true,
             "Pad 0":   { "type":"Float", "min":0,"max":1},
             "Pad 1":   { "type":"Float", "min":0,"max":1},
             "Pad 2":   { "type":"Float", "min":0,"max":1},
@@ -92,6 +93,19 @@
             "Pad 61":  { "type":"Float", "min":0,"max":1},
             "Pad 62":  { "type":"Float", "min":0,"max":1},
             "Pad 63":  { "type":"Float", "min":0,"max":1}
+      },
+            "Faders":{
+            "type":"Container",
+            "collapsed":true,
+            "Fader 0":{"type":"Integer","min":0,"max":127},
+            "Fader 1":{"type":"Integer","min":0,"max":127},
+            "Fader 2":{"type":"Integer","min":0,"max":127},
+            "Fader 3":{"type":"Integer","min":0,"max":127},
+            "Fader 4":{"type":"Integer","min":0,"max":127},
+            "Fader 5":{"type":"Integer","min":0,"max":127},
+            "Fader 6":{"type":"Integer","min":0,"max":127},
+            "Fader 7":{"type":"Integer","min":0,"max":127},
+            "Fader 8":{"type":"Integer","min":0,"max":127},
       },
             "Pad Colors":{
          "type":"Container",

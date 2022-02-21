@@ -1,3 +1,4 @@
+
 //Functions
 
 function setLed(pad, color)
@@ -93,9 +94,14 @@ function noteOffEvent(channel, pitch, velocity)
 function ccEvent(channel, number, value)
 {
 	script.log("ControlChange received "+channel+", "+number+", "+value);
+	i = number-48;
+	local.values.faders.getChild("Fader" + i).set(value);
 }
 
 function sysExEvent(data)
 {
 	script.log("Sysex Message received, "+data.length+" bytes :");
 }
+
+
+resetColors();
