@@ -59,13 +59,13 @@ function setPadColor(pad, colors)
 
 	//setLed(pad, color[0]);
 	var i = parseInt(pad);
-	script.log(" -- a: Pitch "+i+"/ Color "+colors[0]);
+	script.log(" -- setPadColor a: Pitch "+i+"/ Color "+colors[0]);
 	x = colors[0];
 
 	i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
 
 
-	script.log(" -- b: Pitch "+i+"/ Color "+colors[0]);
+	script.log(" -- setPadColor b: Pitch "+i+"/ Color "+colors[0]);
 
 
 	if (x == 0)
@@ -115,21 +115,21 @@ function setButtonColor(pitch, colors)
 	if(pitch >= 64 && pitch <= 71 || pitch >= 82 && pitch <= 89){ // Check if button is a button
 		//setLed(pad, color[0]);
 		pitch = parseInt(pitch);
-		script.log(" -- a: Pitch "+pitch+"/ Color "+colors[0]);
+		script.log(" -- setButtonColor a: Pitch "+pitch+"/ Color "+colors[0]);
 
 		// Convert the pad index / MIDI pitch to button notation (e.g., "R1", "F2") of GUI
 		if (pitch >= 82 && pitch<= 89) {	// Button R1 to R8
 				button = pitch-81;
 				button = "R"+button;
-				script.log(" -- b1: Button "+button+"/ Color "+colors[0]);
+				script.log(" -- setButtonColor b1: Button "+button+"/ Color "+colors[0]);
 		}
 		if (pitch >= 64 && pitch <= 71) {	// Button F1 to F8
 				button = pitch-63;
 				button = "F"+button;
-				script.log(" -- b2: Button "+button+"/ Color "+colors[0]);
+				script.log(" -- setButtonColor b2: Button "+button+"/ Color "+colors[0]);
 		}
 
-		script.log(" -- c: Button "+button+"/ Color "+colors[0]);
+		script.log(" -- setButtonColor c: Button "+button+"/ Color "+colors[0]);
 
 		x = colors[0];
 		if (x == 0)
@@ -239,7 +239,7 @@ function resetColorsButtonsR()
 function moduleParameterChanged(param)
 {
 	script.log(" -- param change");
-  	script.log(value.name + " param changed, new value: " + param.get());
+  	script.log(" -- " + param.name + " param changed, new value: " + param.get());
 }
 
 /**
@@ -291,7 +291,7 @@ function moduleValueChanged(value) {
 
 		script.log(" -- value change : padColors", id);
 		var val = value.get();
-		script.log(" -- Test 179: "+id+"/"+val[0]+"/"+val[1]);
+		script.log(" -- value change : "+id+"/"+val[0]+"/"+val[1]);
 		//setLed(id, val[0]);
 		local.sendNoteOn(1, id, val[0]);
 
@@ -307,7 +307,7 @@ function moduleValueChanged(value) {
 		if(value.name.substring(6, 7) == "F"){
 			var id = parseInt(value.name.substring(7, 8)) + 63;
 			var val = value.get();
-			script.log(" -- Test: "+value.name.substring(7, 8)+"/"+val[0]+"/"+val[1]);
+			script.log(" -- value change a: "+value.name.substring(7, 8)+"/"+val[0]+"/"+val[1]);
 			//setLed(id, val[0]);
 			local.sendNoteOn(1, id, val[0]);
 		}
@@ -315,7 +315,7 @@ function moduleValueChanged(value) {
 		else if(value.name.substring(6, 7) == "R"){
 			var id = parseInt(value.name.substring(7, 8)) + 81;
 			var val = value.get();
-			script.log(" -- Test: "+value.name.substring(7, 8)+"/"+val[0]+"/"+val[1]);
+			script.log(" -- value change b: "+value.name.substring(7, 8)+"/"+val[0]+"/"+val[1]);
 			//setLed(id, val[0]);
 			local.sendNoteOn(1, id, val[0]);
 		}
@@ -377,7 +377,7 @@ function noteOnEvent(channel, pitch, velocity)
  */
 function noteOffEvent(channel, pitch, velocity)
 {
-		script.log(" -- note oOff event");
+		script.log(" -- note Off event");
 
 	script.log(" -- Note off received "+channel+", "+pitch+", "+velocity);
 	var i = pitch;
@@ -410,9 +410,9 @@ function noteOffEvent(channel, pitch, velocity)
  */
 function ccEvent(channel, number, value)
 {
-		script.log(" -- cc Event");
+		script.log(" -- Control Change Event");
 
-	script.log(" -- ControlChange received "+channel+", "+number+", "+value);
+	script.log(" -- Control Change received "+channel+", "+number+", "+value);
 	i = number-47;
 	local.values.faders.getChild("Fader " + i).set(value);
 }
@@ -426,7 +426,7 @@ function ccEvent(channel, number, value)
  */
 function sysExEvent(data)
 {
-	script.log(" -- Sysex Message received, "+data.length+" bytes :");
+	script.log(" -- sysEx Message received, "+data.length+" bytes :");
 }
 
 
