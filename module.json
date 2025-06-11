@@ -2,7 +2,7 @@
    "name":"APC Mini",
    "type":"MIDI",
    "path":"Hardware",
-   "version":"1.0.2",
+   "version":"1.0.1",
    "description":"MIDI Module for the Akai APC Mini MIDI Controller",
    "url":"https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module",
    "downloadURL":"https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module/archive/master.zip",
@@ -333,7 +333,7 @@
                      "Button F6": "69",
                      "Button F7": "70",
                      "Button F8": "71",
-                     
+
                      "Button R1": "82",
                      "Button R2": "83",
                      "Button R3": "84",
@@ -354,9 +354,21 @@
             }
          }
       },
-      "Reset Pad Colors":{
+      "Reset All Colors":{
          "menu":"",
          "callback":"resetColors"
+      },
+      "Reset Pad Colors":{
+         "menu":"",
+         "callback":"resetColorsPads"
+      },
+      "Reset Button R Colors":{
+         "menu":"",
+         "callback":"resetColorsButtonsR"
+      },
+      "Reset Button F Colors":{
+         "menu":"",
+         "callback":"resetColorsButtonsF"
       }
    }
 }
