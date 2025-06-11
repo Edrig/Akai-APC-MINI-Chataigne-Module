@@ -13,6 +13,24 @@ function setLed(pad, colors)
 	local.sendNoteOn(1, pad, colors[0]);
 }
 
+/**
+ * Converts a MIDI pitch value to grid notation (e.g., "8.1", "7.2").
+ *
+ * Example: For pitch 0, it returns "8.1"; for pitch 63, it returns "1.8".
+ * 
+ * @param {number} pitch - The MIDI note number (0-63).
+ * @returns {string} The grid notation corresponding to the pitch. (1.1-8.8)
+ */
+ function convertPitchToPadgrid(pitch) 
+ {
+	pitch = parseInt(pitch);
+ 	row = parseInt(8 - Math.floor(pitch / 8));	// Calculate the row (1-8)
+ 	column = (pitch % 8) + 1; 			// Calculate the column (1-8)
+	gridNotation = row + "." + column;			// Format as "row.column"
+	script.log(" -- convertPitchToPadgrid: pitch "+pitch+" as row "+row+" and col "+column+",to grid notation:"+gridNotation);
+ 	return gridNotation;
+ }
+
 
 ///////////////////////
 ////////Commands
@@ -42,40 +60,8 @@ function setPadColor(pad, colors)
 	script.log(" -- a: "+i+"/"+colors[0]);
 	x = colors[0];
 
-	if (i >= 0 && i<= 63) {
-		if (i >= 0 && i<= 7) {
-			i = i+1;
-			i = "8."+i;
-		}
-		else if (i >= 8 && i<= 15) {
-			i = i-7;
-			i = "7."+i;
-		}
-		else if (i >= 16 && i<= 23) {
-			i = i-15;
-			i = "6."+i;
-		}
-		else if (i >= 24 && i<= 31) {
-			i = i-23;
-			i = "5."+i;
-		}
-		else if (i >= 32 && i<= 39) {
-			i = i-31;
-			i = "4."+i;
-		}
-		else if (i >= 40 && i<= 47) {
-			i = i-39;
-			i = "3."+i;
-		}
-		else if (i >= 48 && i<= 55) {
-			i = i-47;
-			i = "2."+i;
-		}
-		else if (i >= 56 && i<= 63) {
-			i = i-55;
-			i = "1."+i;
-		}
-	}
+	i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
+
 
 	script.log(" -- b: "+i+"/"+colors[0]);
 
@@ -301,38 +287,8 @@ function noteOnEvent(channel, pitch, velocity)
     	local.values.buttons.getChild("Button R" + i).set(1);
 	}
 	else if (i >= 0 && i<= 63) {
-		if (i >= 0 && i<= 7) {
-			i = i+1;
-			i = "8."+i;
-		}
-		else if (i >= 8 && i<= 15) {
-			i = i-7;
-			i = "7."+i;
-		}
-		else if (i >= 16 && i<= 23) {
-			i = i-15;
-			i = "6."+i;
-		}
-		else if (i >= 24 && i<= 31) {
-			i = i-23;
-			i = "5."+i;
-		}
-		else if (i >= 32 && i<= 39) {
-			i = i-31;
-			i = "4."+i;
-		}
-		else if (i >= 40 && i<= 47) {
-			i = i-39;
-			i = "3."+i;
-		}
-		else if (i >= 48 && i<= 55) {
-			i = i-47;
-			i = "2."+i;
-		}
-		else if (i >= 56 && i<= 63) {
-			i = i-55;
-			i = "1."+i;
-		}
+		
+		i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
 
     	local.values.pads.getChild("Pad " + i).set(1);
 	}
@@ -368,38 +324,9 @@ function noteOffEvent(channel, pitch, velocity)
     	local.values.buttons.getChild("Button R" + i).set(0);
 	}
 	else if (i >= 0 && i<= 63) {
-		if (i >= 0 && i<= 7) {
-			i = i+1;
-			i = "8."+i;
-		}
-		else if (i >= 8 && i<= 15) {
-			i = i-7;
-			i = "7."+i;
-		}
-		else if (i >= 16 && i<= 23) {
-			i = i-15;
-			i = "6."+i;
-		}
-		else if (i >= 24 && i<= 31) {
-			i = i-23;
-			i = "5."+i;
-		}
-		else if (i >= 32 && i<= 39) {
-			i = i-31;
-			i = "4."+i;
-		}
-		else if (i >= 40 && i<= 47) {
-			i = i-39;
-			i = "3."+i;
-		}
-		else if (i >= 48 && i<= 55) {
-			i = i-47;
-			i = "2."+i;
-		}
-		else if (i >= 56 && i<= 63) {
-			i = i-55;
-			i = "1."+i;
-		}
+		
+		i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
+
     	local.values.pads.getChild("Pad " + i).set(0);
 	}
 	else if (i == 98) {
