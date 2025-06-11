@@ -10,6 +10,7 @@
  */
 function setLed(pad, colors)
 {
+	script.log(" -- setLed for "+pad);
 	local.sendNoteOn(1, pad, colors[0]);
 }
 
@@ -27,6 +28,7 @@ function setLed(pad, colors)
  	row = parseInt(8 - Math.floor(pitch / 8));	// Calculate the row (1-8)
  	column = (pitch % 8) + 1; 			// Calculate the column (1-8)
 	gridNotation = row + "." + column;			// Format as "row.column"
+
 	script.log(" -- convertPitchToPadgrid: pitch "+pitch+" as row "+row+" and col "+column+",to grid notation:"+gridNotation);
  	return gridNotation;
  }
@@ -53,17 +55,17 @@ function setLed(pad, colors)
  */
 function setPadColor(pad, colors)
 {
-	script.log(" -- setPadColor for %d", pad);
+	script.log(" -- setPadColor for "+ pad);
 
 	//setLed(pad, color[0]);
 	var i = parseInt(pad);
-	script.log(" -- a: "+i+"/"+colors[0]);
+	script.log(" -- a: Pitch "+i+"/ Color "+colors[0]);
 	x = colors[0];
 
 	i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
 
 
-	script.log(" -- b: "+i+"/"+colors[0]);
+	script.log(" -- b: Pitch "+i+"/ Color "+colors[0]);
 
 
 	if (x == 0)
@@ -103,60 +105,124 @@ function setPadColor(pad, colors)
  * Depending on the pad index, this function maps the pad to a specific button identifier,
  * then sets its color state ("Off", "On", or "Blink") based on the provided color value.
  *
- * @param {number|string} pad - The pad index or identifier to set the color for.
+ * @param {number|string} pitch - The pad index / MIDI pitch or identifier to set the color for.
  * @param {number[]} colors - An array where the first element determines the color state:
  *   0 = "Off", 1 = "On", 2 = "Blink".
  */
-function setButtonColor(pad, colors)
+function setButtonColor(pitch, colors)
 {
 	script.log(" -- set Button Color");
+	if(pitch >= 64 && pitch <= 71 || pitch >= 82 && pitch <= 89){ // Check if button is a button
+		//setLed(pad, color[0]);
+		pitch = parseInt(pitch);
+		script.log(" -- a: Pitch "+pitch+"/ Color "+colors[0]);
 
-	//setLed(pad, color[0]);
-	i = parseInt(pad);
-	script.log(" -- a: "+i+"/"+colors[0]);
+		// Convert the pad index / MIDI pitch to button notation (e.g., "R1", "F2") of GUI
+		if (pitch >= 82 && pitch<= 89) {	// Button R1 to R8
+				button = pitch-81;
+				button = "R"+button;
+				script.log(" -- b1: Button "+button+"/ Color "+colors[0]);
+		}
+		if (pitch >= 64 && pitch <= 71) {	// Button F1 to F8
+				button = pitch-63;
+				button = "F"+button;
+				script.log(" -- b2: Button "+button+"/ Color "+colors[0]);
+		}
 
-	if (i >= 82 && i<= 89) {
-			i = i-81;
-			i = "R"+i;
-	}
-	if (i >= 64 && i<= 71) {
-			i = i-63;
-			i = "F"+i;
-	}
+		script.log(" -- c: Button "+button+"/ Color "+colors[0]);
 
-	script.log(" -- b: "+i+"/"+colors[0]);
-
-	x = colors[0];
-	if (x == 0)
-	{
-		local.values.buttonColors.getChild("Button "+i).set("Off");
-	}
-	else if (x == 1)
-	{
-		local.values.buttonColors.getChild("Button "+i).set("On");
-	}
-	else if (x == 2)
-	{
-		local.values.buttonColors.getChild("Button "+i).set("Blink");
-	}
+		x = colors[0];
+		if (x == 0)
+		{
+			local.values.buttonColors.getChild("Button "+button).set("Off");
+		}
+		else if (x == 1)
+		{
+			local.values.buttonColors.getChild("Button "+button).set("On");
+		}
+		else if (x == 2)
+		{
+			local.values.buttonColors.getChild("Button "+button).set("Blink");
+		}
+	};
 }
 	
 
-
-/**
+ /**
  * Resets the color of all pads to the default color (0).
  * Iterates through all pad indices (0 to 62) and sets their color to 0.
  * Logs the reset action for debugging purposes.
  */
 function resetColors()
 {
-	script.log(" -- reset color");
-
-	for(var i=0;i<63;i++) 
+	script.log(" -- reset color pad");
+	// Reset pad colors to default (0)
+	for(var i=0;i<=63;i++) 
 		{
-			setPadColor(i, 0);
+			local.sendNoteOn(1, i, 0);
+			setPadColor(i, [0]);
 		}
+	script.log(" -- reset color buttons F");
+	// Reset button colors for F1 to F8
+	for(var i=64;i<=71;i++) 
+		{
+			local.sendNoteOn(1, i, 0);
+			setButtonColor(i, [0]);
+		}
+	script.log(" -- reset color buttons R");
+	// Reset button colors for R1 to R8
+	for(var i=82;i<=89;i++) 
+		{
+			local.sendNoteOn(1, i, 0);
+			setButtonColor(i, [0]);
+		}
+}
 
+ /**
+ * Resets the color of all pads to the default color (0).
+ * Iterates through all pad indices (0 to 62) and sets their color to 0.
+ * Logs the reset action for debugging purposes.
+ */
+function resetColorsPads()
+{
+	script.log(" -- reset color pad");
+	// Reset pad colors to default (0)
+	for(var i=0;i<=63;i++) 
+		{
+			local.sendNoteOn(1, i, 0);
+			setPadColor(i, [0]);
+		}
+}
+
+ /**
+ * Resets the color of all pads to the default color (0).
+ * Iterates through all pad indices (0 to 62) and sets their color to 0.
+ * Logs the reset action for debugging purposes.
+ */
+function resetColorsButtonsF()
+{
+	script.log(" -- reset color buttons F");
+	// Reset button colors for F1 to F8
+	for(var i=64;i<=71;i++) 
+		{
+			local.sendNoteOn(1, i, 0);
+			setButtonColor(i, [0]);
+		}
+}
+ /**
+ * Resets the color of all pads to the default color (0).
+ * Iterates through all pad indices (0 to 62) and sets their color to 0.
+ * Logs the reset action for debugging purposes.
+ */
+function resetColorsButtonsR()
+{
+	script.log(" -- reset color buttons R");
+	// Reset button colors for R1 to R8
+	for(var i=82;i<=89;i++) 
+		{
+			local.sendNoteOn(1, i, 0);
+			setButtonColor(i, [0]);
+		}
 }
 ///////////////////////
 //////////Events
@@ -192,10 +258,10 @@ function moduleValueChanged(value) {
   script.log(value.name + " value changed, new value: " + value);
   	if(value.getParent().name == "padColors")
 	{
-		script.log(" -- value change : padColors", value.name.substring(0, 7));
+		script.log(" -- value change : padColors " + value.name.substring(0, 7));
 
-		script.log(" -- Value Change: ", value.name.substring(3, 4));
-		script.log(" -- Value Change: ", value.name.substring(4, 5));
+		script.log(" -- Value Change: " + value.name.substring(3, 4));
+		script.log(" -- Value Change: " + value.name.substring(4, 5));
 
 
 		if(value.name.substring(3, 4) == "8"){
@@ -324,7 +390,7 @@ function noteOffEvent(channel, pitch, velocity)
     	local.values.buttons.getChild("Button R" + i).set(0);
 	}
 	else if (i >= 0 && i<= 63) {
-		
+
 		i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
 
     	local.values.pads.getChild("Pad " + i).set(0);
