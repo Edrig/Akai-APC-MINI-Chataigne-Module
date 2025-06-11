@@ -1,6 +1,12 @@
 
 //Functions
 
+/**
+ * Sets the LED color for a specific pad on the Akai APC Mini.
+ *
+ * @param {number} pad - The pad number to set the LED for.
+ * @param {number[]} colors - An array of color values, where the first element is used for the LED.
+ */
 function setLed(pad, colors)
 {
 	local.sendNoteOn(1, pad, colors[0]);
@@ -9,6 +15,22 @@ function setLed(pad, colors)
 //Commands
 
 
+/**
+ * Sets the color of a specified pad on the Akai APC Mini controller.
+ *
+ * The function maps the pad index (0-63) to a corresponding pad identifier string,
+ * then sets the pad color based on the provided color code.
+ *
+ * @param {number|string} pad - The index of the pad (0-63) to set the color for.
+ * @param {number[]} colors - An array where the first element is a color code:
+ *   0 = Black,
+ *   1 = Green,
+ *   2 = Green_Blink,
+ *   3 = Red,
+ *   4 = Red_Blink,
+ *   5 = Yellow,
+ *   6 = Yellow_Blink.
+ */
 function setPadColor(pad, colors)
 {
 	script.log(" -- setPadColor for %d", pad);
@@ -87,6 +109,16 @@ function setPadColor(pad, colors)
 }
 
 
+/**
+ * Sets the color state of a button (pad) on the Akai APC Mini.
+ *
+ * Depending on the pad index, the function maps the pad to a specific button identifier,
+ * then sets its color state to "Off", "On", or "Blink" based on the provided colors array.
+ *
+ * @param {number|string} pad - The pad index or identifier to set the color for.
+ * @param {number[]} colors - An array where the first element determines the color state:
+ *   0 = "Off", 1 = "On", 2 = "Blink".
+ */
 function setButtonColor(pad, colors)
 {
 	script.log(" -- set Button Color");
@@ -123,6 +155,11 @@ function setButtonColor(pad, colors)
 	
 
 
+/**
+ * Resets the color of all pads to the default color (color index 0).
+ * Iterates through all pad indices (0 to 62) and sets each pad's color to 0.
+ * Logs the reset action for debugging purposes.
+ */
 function resetColors()
 {
 	script.log(" -- reset color");
@@ -136,12 +173,29 @@ function resetColors()
 
 //Events
 
+/**
+ * Handles changes to a module parameter.
+ *
+ * Logs the parameter change event and its new value.
+ *
+ * @param {Object} param - The parameter object that has changed.
+ * @param {Function} param.get - Function to retrieve the current value of the parameter.
+ */
 function moduleParameterChanged(param)
 {
 	script.log(" -- param change");
   	script.log(value.name + " param changed, new value: " + param.get());
 }
 
+/**
+ * Handles changes to module values, specifically for "padColors" and "buttonColors" parents.
+ * Logs value changes and sends MIDI note messages based on the value's name and parent.
+ *
+ * @param {Object} value - The value object that changed.
+ * @param {string} value.name - The name of the value, used to determine the pad/button index.
+ * @param {Function} value.getParent - Returns the parent object of the value.
+ * @param {Function} value.get - Returns the current value as an array [velocity, ...].
+ */
 function moduleValueChanged(value) {
 	script.log(" -- value change");
 
@@ -213,6 +267,21 @@ function moduleValueChanged(value) {
 	}
 }
 
+/**
+ * Handles a MIDI Note On event for the Akai APC Mini controller.
+ *
+ * Depending on the pitch value, this function updates the state of buttons or pads
+ * in the local.values object to reflect the received note.
+ *
+ * - Pitches 64-71: Set "Button F1" to "Button F8".
+ * - Pitches 82-89: Set "Button R1" to "Button R8".
+ * - Pitches 0-63: Set "Pad X.Y" where X is the row (1-8) and Y is the column (1-8).
+ * - Pitch 98: Set the "Square" button.
+ *
+ * @param {number} channel - The MIDI channel number (0-15).
+ * @param {number} pitch - The MIDI note number (0-127).
+ * @param {number} velocity - The velocity of the note (0-127).
+ */
 function noteOnEvent(channel, pitch, velocity)
 {
 	script.log(" -- note On event");
@@ -270,6 +339,22 @@ function noteOnEvent(channel, pitch, velocity)
 }
 
 
+/**
+ * Handles a MIDI Note Off event for the Akai APC Mini controller.
+ *
+ * Depending on the pitch value, this function updates the corresponding button or pad state
+ * in the local.values object to indicate that the note has been released (set to 0).
+ *
+ * Button and pad mapping:
+ * - Pitches 64-71: "Button F1" to "Button F8"
+ * - Pitches 82-89: "Button R1" to "Button R8"
+ * - Pitches 0-63:  "Pad X.Y" where X is the row (1-8) and Y is the column (1-8)
+ * - Pitch 98:      "Square" button
+ *
+ * @param {number} channel - The MIDI channel number (0-15).
+ * @param {number} pitch - The MIDI note number (0-127).
+ * @param {number} velocity - The velocity value of the note off event (0-127).
+ */
 function noteOffEvent(channel, pitch, velocity)
 {
 		script.log(" -- note oOff event");
@@ -325,6 +410,13 @@ function noteOffEvent(channel, pitch, velocity)
 	}
 }
 
+/**
+ * Handles a MIDI Control Change (CC) event by logging the event and updating the corresponding fader value.
+ *
+ * @param {number} channel - The MIDI channel number on which the CC event was received.
+ * @param {number} number - The MIDI CC number (controller number).
+ * @param {number} value - The value of the CC message (typically 0-127).
+ */
 function ccEvent(channel, number, value)
 {
 		script.log(" -- cc Event");
@@ -334,6 +426,13 @@ function ccEvent(channel, number, value)
 	local.values.faders.getChild("Fader " + i).set(value);
 }
 
+/**
+ * Handles a System Exclusive (SysEx) MIDI event.
+ *
+ * Logs the receipt of a SysEx message and its length in bytes.
+ *
+ * @param {Uint8Array|Array<number>} data - The SysEx message data as an array of bytes.
+ */
 function sysExEvent(data)
 {
 	script.log(" -- Sysex Message received, "+data.length+" bytes :");
