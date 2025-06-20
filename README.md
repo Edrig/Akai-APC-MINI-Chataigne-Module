@@ -1,23 +1,26 @@
 # Akai-APC-MINI-Chataigne-Module
-Module to use all the 64 Pads, 17 Buttons and 9 Faders of the AKAI APC mini MIDI Controller
+Module to use all the 64 Pads, 17 Buttons and 9 Faders of the AKAI APCmini MIDI Controller.
+The layout and code comes directly from the APCminiMKII module from Lenschcore.
 
+- @lenschcode https://github.com/lenschcode/APC-Mini-mkII-Chataigne-Module
+- @Edrig https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module
 
 ## Values
-**Pads**
+**Main Buttons**
 - Read Values from Pressed or Released
-- Read Color of Pad Light
+- Read Color of Button Light
   + Red or Red_Blink
   + Green or Green_Blink
   + Yellow or Yellow_Blink
   + Black / Off
 
 
-**Buttons**
+**Side / Bottom Buttons**
 - Read Values from Pressed or Released
 - Read Color of Button Lights
-  + Button R1-8: Green or Green_Blink
-  + Button F1-8: Red or Red_Blink
-  + Button Square: Has no Light, Allways Black / Off
+  + Side Button 1-8: Green or Green_Blink
+  + Bottom Button 1-8: Red or Red_Blink
+  + Bottom Button 9: Has no Light, Allways Black / Off
   + Black / Off
 
 
@@ -27,8 +30,8 @@ Module to use all the 64 Pads, 17 Buttons and 9 Faders of the AKAI APC mini MIDI
 
 ## Functions
 
-**Pads**
-- Set Color of Pad Light
+**Main Buttons**
+- Set Color of Button Light
   + Red or Red_Blink
   + Green or Green_Blink
   + Yellow or Yellow_Blink
@@ -37,13 +40,17 @@ Module to use all the 64 Pads, 17 Buttons and 9 Faders of the AKAI APC mini MIDI
 
 **Buttons**
 - Set Color of Button Lights
-  + Button R1-8: Green or Green_Blink
-  + Button F1-8: Red or Red_Blink
-  + Button Square: Has no Light, Allways Black / Off
+  + Button Side 1-8: Green or Green_Blink
+  + Button Bottom 1-8: Red or Red_Blink
+  + Button Bottom 9: Has no Light, Allways Black / Off
   + Black / Off
 
 **Colors**
 - Reset all Colors to Black / Off
 
+**Display Logo**
+- You are bored? Trigger the Logoanimation by reconection the controller or by the trigger in Chataing!
+- You need to prokrastinate and Question the use of all your doing? Do something nice with no practicall use for shure and imporve the Logoanimation!
+
 ## Original Midi Layout and Module Naming
-![hell](https://raw.githubusercontent.com/Polofiziert/Akai-APC-MINI-Chataigne-Module/refs/heads/main/APCmini_Chataigne_Module.jpg)
+![hell](https://github.com/Polofiziert/Akai-APC-MINI-Chataigne-Module/blob/main/APCmini_Chataigne_Module.png)
