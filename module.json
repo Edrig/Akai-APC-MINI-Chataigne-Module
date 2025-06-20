@@ -1,374 +1,863 @@
 {
-   "name":"APC Mini",
-   "type":"MIDI",
-   "path":"Hardware",
-   "version":"1.0.1",
-   "description":"MIDI Module for the Akai APC Mini MIDI Controller",
-   "url":"https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module",
-   "downloadURL":"https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module/archive/master.zip",
-   "hasInput":true,
-   "hasOutput":true,
-   "hideDefaultCommands":true,
+	"name":"APC Mini",
+	"type":"MIDI",
+	"path":"Hardware",
+	
+	"version":"1.0.0",
+	"description":"Special MIDI Module for the APC Mini MIDI Controller",
+	"url":"https://github.com/lenschcode/APC-Mini-mkII-Chataigne-Module",
+	"downloadURL":"https://github.com/lenschcode/APC-Mini-mkII-Chataigne-Module/archive/master.zip",
 
-   "parameters":{
-   },
-   "defaults":{
-      "devices":[
-         ["APC MINI[0]", "APC MINI[1]"]
-      ],
-      "autoAdd":false
-   },
-   "hideDefaultParameters":[
-      "autoAdd",
-      "autoFeedback"
-   ],
-   "scripts":[
-      "AkaiAPCmini.js"
-   ],
-   "values":{
-      "Pads":{
-         "type":"Container",
-         "collapsed":true,
-            "Pad 1.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 1.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 2.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 3.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 4.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 5.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 6.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 7.8":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.1":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.2":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.3":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.4":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.5":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.6":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.7":   { "type":"Float", "min":0,"max":1},
-            "Pad 8.8":   { "type":"Float", "min":0,"max":1}
-      },
-            "Faders":{
-            "type":"Container",
-            "collapsed":true,
-            "Fader 1":{"type":"Integer","min":0,"max":127},
-            "Fader 2":{"type":"Integer","min":0,"max":127},
-            "Fader 3":{"type":"Integer","min":0,"max":127},
-            "Fader 4":{"type":"Integer","min":0,"max":127},
-            "Fader 5":{"type":"Integer","min":0,"max":127},
-            "Fader 6":{"type":"Integer","min":0,"max":127},
-            "Fader 7":{"type":"Integer","min":0,"max":127},
-            "Fader 8":{"type":"Integer","min":0,"max":127},
-            "Fader 9":{"type":"Integer","min":0,"max":127}
+	"hasInput":true,
+	"hasOutput":true, 
 
-      },
-            "Buttons":{
-            "type":"Container",
-            "collapsed":true,
-            "Button F1":{"type":"Float","min":0,"max":1},
-            "Button F2":{"type":"Float","min":0,"max":1},
-            "Button F3":{"type":"Float","min":0,"max":1},
-            "Button F4":{"type":"Float","min":0,"max":1},
-            "Button F5":{"type":"Float","min":0,"max":1},
-            "Button F6":{"type":"Float","min":0,"max":1},
-            "Button F7":{"type":"Float","min":0,"max":1},
-            "Button F8":{"type":"Float","min":0,"max":1},
+	"hideDefaultCommands":true,
 
-            "Button R1":{"type":"Float","min":0,"max":1},
-            "Button R2":{"type":"Float","min":0,"max":1},
-            "Button R3":{"type":"Float","min":0,"max":1},
-            "Button R4":{"type":"Float","min":0,"max":1},
-            "Button R5":{"type":"Float","min":0,"max":1},
-            "Button R6":{"type":"Float","min":0,"max":1},
-            "Button R7":{"type":"Float","min":0,"max":1},
-            "Button R8":{"type":"Float","min":0,"max":1},
-            "Square":{"type":"Float","min":0,"max":1}
-      },
-            "Pad Colors":{
-            "type":"Container",
-            "collapsed":true,
-            "Pad 1.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 1.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 2.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 2.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 3.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 3.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 4.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 4.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 5.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 5.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 6.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 6.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 7.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 7.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            
-            "Pad 8.1":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.2":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.3":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.4":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.5":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.6":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.7":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}},
-            "Pad 8.8":{"type":"Enum","options":{"Black":[0],"Green":[1],"Green_Blink":[2],"Red":[3],"Red_Blink":[4],"Yellow":[5],"Yellow_Blink":[6]}}
-   },
+	"parameters":
+	{
+		"Colors":
+		{
+			"type": "Container",
+			"collapsed":false,
 
-            "Button Colors":{
-            "type":"Container",
-            "collapsed":true,
-            "Button F1":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F2":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F3":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F4":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F5":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F6":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F7":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button F8":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
+			"Main Buttons":
+			{
+				"type": "Container",
+				"collapsed":true,
 
-            "Button R1":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R2":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R3":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R4":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R5":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R6":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R7":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}},
-            "Button R8":{"type":"Enum","options":{"Off":[0],"On":[1],"Blink":[2]}}
-   }
+				"Button 1.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 1.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 2.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 2.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 3.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 3.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 4.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 4.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 5.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 5.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 6.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 6.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 7.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 7.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+
+				"Button 8.1": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.2": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.3": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.4": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.5": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.6": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.7": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}},
+				"Button 8.8": {"type":"Enum","options":{"Black":0,"Green":1,"Green_Blink":2,"Red":3,"Red_Blink":4,"Yellow":5,"Yellow_Blink":6}}
+			},
+
+			"Side Buttons":
+			{
+				"type": "Container",
+				"collapsed":true,
+
+				"Side Button 1": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 2": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 3": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 4": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 5": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 6": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 7": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Side Button 8": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}}
+			},
+
+			"Bottom Buttons":
+			{
+				"type": "Container",
+				"collapsed":true,
+
+				"Bottom Button 1": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 2": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 3": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 4": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 5": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 6": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 7": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}},
+				"Bottom Button 8": {"type":"Enum","options":{"Off":0,"On":1,"Blink":2}}
+			}
+		},
+		
+		"Pulsing":
+		{
+			"type": "Container",
+			"collapsed":false,
+
+			"Pulse Speed":
+			{
+				"type":"Integer",
+				"default":2,
+				"min":0,
+				"max":100,
+				"step":1,
+				"description":"Speed of the Pulsing Effect, 0 = Off, 1 = Fastest"
+			},
+
+			"Pulse Rate":
+			{
+				"type":"Float",
+				"default":1.0,
+				"min":0.1,
+				"max":5.0,
+				"step":0.01,
+				"description":"Rate of the Pulsing Effect, 0 = Off, 1 = Fastest"
+			},
+
+			"Main Buttons":
+			{
+				"type":"Container",
+				"collapsed":true,
+
+				"Button 1.1": { "type": "Boolean"},
+				"Button 1.2": { "type": "Boolean"},
+				"Button 1.3": { "type": "Boolean"},
+				"Button 1.4": { "type": "Boolean"},
+				"Button 1.5": { "type": "Boolean"},
+				"Button 1.6": { "type": "Boolean"},
+				"Button 1.7": { "type": "Boolean"},
+				"Button 1.8": { "type": "Boolean"},
+
+				"Button 2.1": { "type": "Boolean"},
+				"Button 2.2": { "type": "Boolean"},
+				"Button 2.3": { "type": "Boolean"},
+				"Button 2.4": { "type": "Boolean"},
+				"Button 2.5": { "type": "Boolean"},
+				"Button 2.6": { "type": "Boolean"},
+				"Button 2.7": { "type": "Boolean"},
+				"Button 2.8": { "type": "Boolean"},
+
+				"Button 3.1": { "type": "Boolean"},
+				"Button 3.2": { "type": "Boolean"},
+				"Button 3.3": { "type": "Boolean"},
+				"Button 3.4": { "type": "Boolean"},
+				"Button 3.5": { "type": "Boolean"},
+				"Button 3.6": { "type": "Boolean"},
+				"Button 3.7": { "type": "Boolean"},
+				"Button 3.8": { "type": "Boolean"},
+
+				"Button 4.1": { "type": "Boolean"},
+				"Button 4.2": { "type": "Boolean"},
+				"Button 4.3": { "type": "Boolean"},
+				"Button 4.4": { "type": "Boolean"},
+				"Button 4.5": { "type": "Boolean"},
+				"Button 4.6": { "type": "Boolean"},
+				"Button 4.7": { "type": "Boolean"},
+				"Button 4.8": { "type": "Boolean"},
+
+				"Button 5.1": { "type": "Boolean"},
+				"Button 5.2": { "type": "Boolean"},
+				"Button 5.3": { "type": "Boolean"},
+				"Button 5.4": { "type": "Boolean"},
+				"Button 5.5": { "type": "Boolean"},
+				"Button 5.6": { "type": "Boolean"},
+				"Button 5.7": { "type": "Boolean"},
+				"Button 5.8": { "type": "Boolean"},
+
+				"Button 6.1": { "type": "Boolean"},
+				"Button 6.2": { "type": "Boolean"},
+				"Button 6.3": { "type": "Boolean"},
+				"Button 6.4": { "type": "Boolean"},
+				"Button 6.5": { "type": "Boolean"},
+				"Button 6.6": { "type": "Boolean"},
+				"Button 6.7": { "type": "Boolean"},
+				"Button 6.8": { "type": "Boolean"},
+
+				"Button 7.1": { "type": "Boolean"},
+				"Button 7.2": { "type": "Boolean"},
+				"Button 7.3": { "type": "Boolean"},
+				"Button 7.4": { "type": "Boolean"},
+				"Button 7.5": { "type": "Boolean"},
+				"Button 7.6": { "type": "Boolean"},
+				"Button 7.7": { "type": "Boolean"},
+				"Button 7.8": { "type": "Boolean"},
+
+				"Button 8.1": { "type": "Boolean"},
+				"Button 8.2": { "type": "Boolean"},
+				"Button 8.3": { "type": "Boolean"},
+				"Button 8.4": { "type": "Boolean"},
+				"Button 8.5": { "type": "Boolean"},
+				"Button 8.6": { "type": "Boolean"},
+				"Button 8.7": { "type": "Boolean"},
+				"Button 8.8": { "type": "Boolean"}
+			}
+		}
+	},
+
+	"defaults":
+	{		
+		"devices":[
+			"APC MINI",
+			"APC MINI"
+		],
+		"autoAdd":false
+	},
+
+	"hideDefaultParameters":
+	[
+		"autoAdd",
+		"autoFeedback",
+		"useHierarchy",
+		"octaveShift",
+		"usePitchForNoteNames",
+		"pass_through"
+	],
 
 
-   },
-   "commands":{
-      "Set Pad Color":{
-         "menu":"",
-         "callback":"setPadColor",
-         "parameters":{
-            "Pad":{
-               "type":"Enum",
-               "options": {
-                  "Pad 1.1": "56",
-                  "Pad 1.2": "57",
-                  "Pad 1.3": "58",
-                  "Pad 1.4": "59",
-                  "Pad 1.5": "60",
-                  "Pad 1.6": "61",
-                  "Pad 1.7": "62",
-                  "Pad 1.8": "63",
-                  "Pad 2.1": "48",
-                  "Pad 2.2": "49",
-                  "Pad 2.3": "50",
-                  "Pad 2.4": "51",
-                  "Pad 2.5": "52",
-                  "Pad 2.6": "53",
-                  "Pad 2.7": "54",
-                  "Pad 2.8": "55",
-                  "Pad 3.1": "40",
-                  "Pad 3.2": "41",
-                  "Pad 3.3": "42",
-                  "Pad 3.4": "43",
-                  "Pad 3.5": "44",
-                  "Pad 3.6": "45",
-                  "Pad 3.7": "46",
-                  "Pad 3.8": "47",
-                  "Pad 4.1": "32",
-                  "Pad 4.2": "33",
-                  "Pad 4.3": "34",
-                  "Pad 4.4": "35",
-                  "Pad 4.5": "36",
-                  "Pad 4.6": "37",
-                  "Pad 4.7": "38",
-                  "Pad 4.8": "39",
-                  "Pad 5.1": "24",
-                  "Pad 5.2": "25",
-                  "Pad 5.3": "26",
-                  "Pad 5.4": "27",
-                  "Pad 5.5": "28",
-                  "Pad 5.6": "29",
-                  "Pad 5.7": "30",
-                  "Pad 5.8": "31",
-                  "Pad 6.1": "16",
-                  "Pad 6.2": "17",
-                  "Pad 6.3": "18",
-                  "Pad 6.4": "19",
-                  "Pad 6.5": "20",
-                  "Pad 6.6": "21",
-                  "Pad 6.7": "22",
-                  "Pad 6.8": "23",
-                  "Pad 7.1": "8",
-                  "Pad 7.2": "9",
-                  "Pad 7.3": "10",
-                  "Pad 7.4": "11",
-                  "Pad 7.5": "12",
-                  "Pad 7.6": "13",
-                  "Pad 7.7": "14",
-                  "Pad 7.8": "15",
-                  "Pad 8.1": "0",
-                  "Pad 8.2": "1",
-                  "Pad 8.3": "2",
-                  "Pad 8.4": "3",
-                  "Pad 8.5": "4",
-                  "Pad 8.6": "5",
-                  "Pad 8.7": "6",
-                  "Pad 8.8": "7"
-               }
-            },
-            "Color":{
-               "type":"Enum",
-               "options":{
-                  "Black":[0],
-                  "Green":[1],
-                  "Green_Blink":[2],
-                  "Red":[3],
-                  "Red_Blink":[4],
-                  "Yellow":[5],
-                  "Yellow_Blink":[6]
-               }
-            }
-         }
-      },
-      "Set Button Color":{
-         "menu":"",
-         "callback":"setButtonColor",
-         "parameters":{
-            "Button":{
-               "type":"Enum",
-               "options": {
-                     "Button F1": "64",
-                     "Button F2": "65",
-                     "Button F3": "66",
-                     "Button F4": "67",
-                     "Button F5": "68",
-                     "Button F6": "69",
-                     "Button F7": "70",
-                     "Button F8": "71",
+	"scripts":
+	[
+		"AkaiAPCmini.js"
+	],
 
-                     "Button R1": "82",
-                     "Button R2": "83",
-                     "Button R3": "84",
-                     "Button R4": "85",
-                     "Button R5": "86",
-                     "Button R6": "87",
-                     "Button R7": "88",
-                     "Button R8": "89"
-               }
-            },
-            "Color":{
-               "type":"Enum",
-               "options":{
-                  "Off":[0],
-                  "On":[1],
-                  "Blink":[2]
-               }
-            }
-         }
-      },
-      "Reset All Colors":{
-         "menu":"",
-         "callback":"resetColors"
-      },
-      "Reset Pad Colors":{
-         "menu":"",
-         "callback":"resetColorsPads"
-      },
-      "Reset Button R Colors":{
-         "menu":"",
-         "callback":"resetColorsButtonsR"
-      },
-      "Reset Button F Colors":{
-         "menu":"",
-         "callback":"resetColorsButtonsF"
-      }
-   }
+	"values":
+	{
+		"Faders":
+		{
+			"type":"Container",
+			"collapsed":true,
+
+			"Fader 1": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 2": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 3": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 4": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 5": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 6": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 7": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 8": { "type":"Float", "default":0, "min":0, "max":1},
+			"Fader 9": { "type":"Float", "default":0, "min":0, "max":1}
+		},
+
+		"Main Buttons":
+		{
+			"type":"Container",
+			"collapsed":true,
+
+			"Button 1.1": { "type": "Boolean"},
+			"Button 1.2": { "type": "Boolean"},
+			"Button 1.3": { "type": "Boolean"},
+			"Button 1.4": { "type": "Boolean"},
+			"Button 1.5": { "type": "Boolean"},
+			"Button 1.6": { "type": "Boolean"},
+			"Button 1.7": { "type": "Boolean"},
+			"Button 1.8": { "type": "Boolean"},
+
+			"Button 2.1": { "type": "Boolean"},
+			"Button 2.2": { "type": "Boolean"},
+			"Button 2.3": { "type": "Boolean"},
+			"Button 2.4": { "type": "Boolean"},
+			"Button 2.5": { "type": "Boolean"},
+			"Button 2.6": { "type": "Boolean"},
+			"Button 2.7": { "type": "Boolean"},
+			"Button 2.8": { "type": "Boolean"},
+
+			"Button 3.1": { "type": "Boolean"},
+			"Button 3.2": { "type": "Boolean"},
+			"Button 3.3": { "type": "Boolean"},
+			"Button 3.4": { "type": "Boolean"},
+			"Button 3.5": { "type": "Boolean"},
+			"Button 3.6": { "type": "Boolean"},
+			"Button 3.7": { "type": "Boolean"},
+			"Button 3.8": { "type": "Boolean"},
+
+			"Button 4.1": { "type": "Boolean"},
+			"Button 4.2": { "type": "Boolean"},
+			"Button 4.3": { "type": "Boolean"},
+			"Button 4.4": { "type": "Boolean"},
+			"Button 4.5": { "type": "Boolean"},
+			"Button 4.6": { "type": "Boolean"},
+			"Button 4.7": { "type": "Boolean"},
+			"Button 4.8": { "type": "Boolean"},
+
+			"Button 5.1": { "type": "Boolean"},
+			"Button 5.2": { "type": "Boolean"},
+			"Button 5.3": { "type": "Boolean"},
+			"Button 5.4": { "type": "Boolean"},
+			"Button 5.5": { "type": "Boolean"},
+			"Button 5.6": { "type": "Boolean"},
+			"Button 5.7": { "type": "Boolean"},
+			"Button 5.8": { "type": "Boolean"},
+
+			"Button 6.1": { "type": "Boolean"},
+			"Button 6.2": { "type": "Boolean"},
+			"Button 6.3": { "type": "Boolean"},
+			"Button 6.4": { "type": "Boolean"},
+			"Button 6.5": { "type": "Boolean"},
+			"Button 6.6": { "type": "Boolean"},
+			"Button 6.7": { "type": "Boolean"},
+			"Button 6.8": { "type": "Boolean"},
+
+			"Button 7.1": { "type": "Boolean"},
+			"Button 7.2": { "type": "Boolean"},
+			"Button 7.3": { "type": "Boolean"},
+			"Button 7.4": { "type": "Boolean"},
+			"Button 7.5": { "type": "Boolean"},
+			"Button 7.6": { "type": "Boolean"},
+			"Button 7.7": { "type": "Boolean"},
+			"Button 7.8": { "type": "Boolean"},
+
+			"Button 8.1": { "type": "Boolean"},
+			"Button 8.2": { "type": "Boolean"},
+			"Button 8.3": { "type": "Boolean"},
+			"Button 8.4": { "type": "Boolean"},
+			"Button 8.5": { "type": "Boolean"},
+			"Button 8.6": { "type": "Boolean"},
+			"Button 8.7": { "type": "Boolean"},
+			"Button 8.8": { "type": "Boolean"}
+		},
+
+		"Side Buttons":
+		{
+			"type":"Container",
+			"collapsed":true,
+
+			"Side Button 1":   { "type":"Boolean"},
+			"Side Button 2":   { "type":"Boolean"},
+			"Side Button 3":   { "type":"Boolean"},
+			"Side Button 4":   { "type":"Boolean"},
+			"Side Button 5":   { "type":"Boolean"},
+			"Side Button 6":   { "type":"Boolean"},
+			"Side Button 7":   { "type":"Boolean"},
+			"Side Button 8":   { "type":"Boolean"}
+		},
+
+		"Bottom Buttons":
+		{
+			"type":"Container",
+			"collapsed":true,
+
+			"Bottom Button 1":   { "type":"Boolean"},
+			"Bottom Button 2":   { "type":"Boolean"},
+			"Bottom Button 3":   { "type":"Boolean"},
+			"Bottom Button 4":   { "type":"Boolean"},
+			"Bottom Button 5":   { "type":"Boolean"},
+			"Bottom Button 6":   { "type":"Boolean"},
+			"Bottom Button 7":   { "type":"Boolean"},
+			"Bottom Button 8":   { "type":"Boolean"},
+			"Bottom Button 9":   { "type":"Boolean"}
+		}
+	},
+
+	"commands":
+	{
+		"Set Main Button by Id":
+		{
+			"menu":"Color",
+			"callback":"setColorEnum",
+			"description":"Set the color of a button by its id.",
+			"parameters":
+			{
+				"Button Index":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Main Button 1.1":[0,0],
+						"Main Button 1.2":[0,1],
+						"Main Button 1.3":[0,2],
+						"Main Button 1.4":[0,3],
+						"Main Button 1.5":[0,4],
+						"Main Button 1.6":[0,5],
+						"Main Button 1.7":[0,6],
+						"Main Button 1.8":[0,7],
+						
+						"Main Button 2.1":[1,0],
+						"Main Button 2.2":[1,1],
+						"Main Button 2.3":[1,2],
+						"Main Button 2.4":[1,3],
+						"Main Button 2.5":[1,4],
+						"Main Button 2.6":[1,5],
+						"Main Button 2.7":[1,6],
+						"Main Button 2.8":[1,7],
+						
+						"Main Button 3.1":[2,0],
+						"Main Button 3.2":[2,1],
+						"Main Button 3.3":[2,2],
+						"Main Button 3.4":[2,3],
+						"Main Button 3.5":[2,4],
+						"Main Button 3.6":[2,5],
+						"Main Button 3.7":[2,6],
+						"Main Button 3.8":[2,7],
+						
+						"Main Button 4.1":[3,0],
+						"Main Button 4.2":[3,1],
+						"Main Button 4.3":[3,2],
+						"Main Button 4.4":[3,3],
+						"Main Button 4.5":[3,4],
+						"Main Button 4.6":[3,5],
+						"Main Button 4.7":[3,6],
+						"Main Button 4.8":[3,7],
+						
+						"Main Button 5.1":[4,0],
+						"Main Button 5.2":[4,1],
+						"Main Button 5.3":[4,2],
+						"Main Button 5.4":[4,3],
+						"Main Button 5.5":[4,4],
+						"Main Button 5.6":[4,5],
+						"Main Button 5.7":[4,6],
+						"Main Button 5.8":[4,7],
+						
+						"Main Button 6.1":[5,0],
+						"Main Button 6.2":[5,1],
+						"Main Button 6.3":[5,2],
+						"Main Button 6.4":[5,3],
+						"Main Button 6.5":[5,4],
+						"Main Button 6.6":[5,5],
+						"Main Button 6.7":[5,6],
+						"Main Button 6.8":[5,7],
+						
+						"Main Button 7.1":[6,0],
+						"Main Button 7.2":[6,1],
+						"Main Button 7.3":[6,2],
+						"Main Button 7.4":[6,3],
+						"Main Button 7.5":[6,4],
+						"Main Button 7.6":[6,5],
+						"Main Button 7.7":[6,6],
+						"Main Button 7.8":[6,7],
+						
+						"Main Button 8.1":[7,0],
+						"Main Button 8.2":[7,1],
+						"Main Button 8.3":[7,2],
+						"Main Button 8.4":[7,3],
+						"Main Button 8.5":[7,4],
+						"Main Button 8.6":[7,5],
+						"Main Button 8.7":[7,6],
+						"Main Button 8.8":[7,7]
+						
+					}
+				},
+
+				"Color":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Black":"Black",
+						"Green":"Green",
+						"Green_Blink":"Green_Blink",
+						"Red":"Red",
+						"Red_Blink":"Red_Blink",
+						"Yellow":"Yellow",
+						"Yellow_Blink":"Yellow_Blink"
+					}
+				}
+			}
+		},
+
+		"Set Main Button by Note":
+		{
+			"menu":"Color",
+			"callback":"setColorByNote",
+			"description":"Set the color of a button by its MIDI note number.",
+			"parameters":
+			{
+				"Button Note":
+				{
+					"type":"Integer",
+					"min":0,
+					"max":63
+				},
+
+				"Color":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Black":"Black",
+						"Green":"Green",
+						"Green_Blink":"Green_Blink",
+						"Red":"Red",
+						"Red_Blink":"Red_Blink",
+						"Yellow":"Yellow",
+						"Yellow_Blink":"Yellow_Blink"
+					}
+				}
+			}
+		},
+		
+		"Set Main Button by Index":
+		{
+			"menu":"Color",
+			"callback":"setColorByIndex",
+			"description":"Set the color of a button by its index (0-63).",
+			"parameters":
+			{
+				"Button Index":
+				{
+					"type":"Integer",
+					"min":0,
+					"max":63
+				},
+
+				"Color":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Black":"Black",
+						"Green":"Green",
+						"Green_Blink":"Green_Blink",
+						"Red":"Red",
+						"Red_Blink":"Red_Blink",
+						"Yellow":"Yellow",
+						"Yellow_Blink":"Yellow_Blink"
+					}
+				}
+			}
+		},
+
+		"Set Main Button by Position":
+		{
+			"menu":"Color",
+			"callback":"setColorByPosition",
+			"description":"Set the color of a button by its row and column position.",
+			"parameters":
+			{
+				"Button Row":
+				{
+					"type":"Integer",
+					"min":1,
+					"max":8
+				},
+
+				"Button Column":
+				{
+					"type":"Integer",
+					"min":1,
+					"max":8
+				},
+
+				"Color":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Black":"Black",
+						"Green":"Green",
+						"Green_Blink":"Green_Blink",
+						"Red":"Red",
+						"Red_Blink":"Red_Blink",
+						"Yellow":"Yellow",
+						"Yellow_Blink":"Yellow_Blink"
+					}
+				}
+			}
+		},
+
+		"Set Pulsing":
+		{
+			"menu":"Pulsing",
+			"callback":"setPulsingEnum",
+			"description":"Set the pulsing state of a button by its id.",
+			"parameters":
+			{
+				"Button Index":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Main Button 1.1":[0,0],
+						"Main Button 1.2":[0,1],
+						"Main Button 1.3":[0,2],
+						"Main Button 1.4":[0,3],
+						"Main Button 1.5":[0,4],
+						"Main Button 1.6":[0,5],
+						"Main Button 1.7":[0,6],
+						"Main Button 1.8":[0,7],
+						
+						"Main Button 2.1":[1,0],
+						"Main Button 2.2":[1,1],
+						"Main Button 2.3":[1,2],
+						"Main Button 2.4":[1,3],
+						"Main Button 2.5":[1,4],
+						"Main Button 2.6":[1,5],
+						"Main Button 2.7":[1,6],
+						"Main Button 2.8":[1,7],
+						
+						"Main Button 3.1":[2,0],
+						"Main Button 3.2":[2,1],
+						"Main Button 3.3":[2,2],
+						"Main Button 3.4":[2,3],
+						"Main Button 3.5":[2,4],
+						"Main Button 3.6":[2,5],
+						"Main Button 3.7":[2,6],
+						"Main Button 3.8":[2,7],
+						
+						"Main Button 4.1":[3,0],
+						"Main Button 4.2":[3,1],
+						"Main Button 4.3":[3,2],
+						"Main Button 4.4":[3,3],
+						"Main Button 4.5":[3,4],
+						"Main Button 4.6":[3,5],
+						"Main Button 4.7":[3,6],
+						"Main Button 4.8":[3,7],
+						
+						"Main Button 5.1":[4,0],
+						"Main Button 5.2":[4,1],
+						"Main Button 5.3":[4,2],
+						"Main Button 5.4":[4,3],
+						"Main Button 5.5":[4,4],
+						"Main Button 5.6":[4,5],
+						"Main Button 5.7":[4,6],
+						"Main Button 5.8":[4,7],
+						
+						"Main Button 6.1":[5,0],
+						"Main Button 6.2":[5,1],
+						"Main Button 6.3":[5,2],
+						"Main Button 6.4":[5,3],
+						"Main Button 6.5":[5,4],
+						"Main Button 6.6":[5,5],
+						"Main Button 6.7":[5,6],
+						"Main Button 6.8":[5,7],
+						
+						"Main Button 7.1":[6,0],
+						"Main Button 7.2":[6,1],
+						"Main Button 7.3":[6,2],
+						"Main Button 7.4":[6,3],
+						"Main Button 7.5":[6,4],
+						"Main Button 7.6":[6,5],
+						"Main Button 7.7":[6,6],
+						"Main Button 7.8":[6,7],
+						
+						"Main Button 8.1":[7,0],
+						"Main Button 8.2":[7,1],
+						"Main Button 8.3":[7,2],
+						"Main Button 8.4":[7,3],
+						"Main Button 8.5":[7,4],
+						"Main Button 8.6":[7,5],
+						"Main Button 8.7":[7,6],
+						"Main Button 8.8":[7,7]
+						
+					}
+				},
+
+				"Pulsing":
+				{
+					"type":"Boolean"
+				}
+			}
+		},
+
+		"Set Pulsing by Note":
+		{
+			"menu":"Pulsing",
+			"callback":"setPulsingByNote",
+			"description":"Set the pulsing state of a button by its MIDI note number.",
+			"parameters":
+			{
+				"Button Note":
+				{
+					"type":"Integer",
+					"min":0,
+					"max":63
+				},
+
+				"Pulsing":
+				{
+					"type":"Boolean"
+				}
+			}
+		},
+		
+		"Set Pulsing by Index":
+		{
+			"menu":"Pulsing",
+			"callback":"setPulsingByIndex",
+			"parameters":
+			{
+				"Button Index":
+				{
+					"type":"Integer",
+					"min":0,
+					"max":63,
+					"description":"Index of the button to set pulsing for (0-63)."
+				},
+
+				"Pulsing":
+				{
+					"type":"Boolean",
+					"description":"Enable or disable pulsing for the specified button."
+				}
+			}
+		},
+
+		"Set Pulsing by Position":
+		{
+			"menu":"Pulsing",
+			"callback":"setPulsingByPosition",
+			"description":"Set the pulsing state of a button by its row and column position.",
+			"parameters":
+			{
+				"Button Row":
+				{
+					"type":"Integer",
+					"min":1,
+					"max":8
+				},
+
+				"Button Column":
+				{
+					"type":"Integer",
+					"min":1,
+					"max":8
+				},
+
+				"Pulsing":
+				{
+					"type":"Boolean"
+				}
+			}
+		},
+
+		"Set Side/Bottom LED by Index":
+		{
+			"menu":"Color",
+			"callback":"setButtonLed",
+			"description":"Set the LED state of a side or bottom button by its index.",
+			"parameters":
+			{
+				"Side/Bottom":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Side":0,
+						"Bottom":1
+					}
+
+				},
+
+				"Index":
+				{
+					"type":"Integer",
+					"min":1,
+					"max":8
+				},
+
+				"Color":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Off":"Off",
+						"On":"On",
+						"Blink":"Blink"
+					}
+				}
+			}
+		},
+
+		"Set Side/Bottom LED by Note":
+		{
+			"menu":"Color",
+			"callback":"setButtonLedByNote",
+			"description":"Set the LED state of a side or bottom button by its MIDI note number.",
+			"parameters":
+			{
+				"Button Note":
+				{
+					"type":"Integer",
+					"min":64,
+					"max":89
+				},
+
+				"Color":
+				{
+					"type":"Enum",
+					"options":
+					{
+						"Off":"Off",
+						"On":"On",
+						"Blink":"Blink"
+					}
+				}
+			}
+		},
+
+		"Resync Device":
+		{
+			"menu":"",
+			"callback":"resync",
+			"description":"Resync the device to ensure all settings are applied correctly."
+		},
+		"Reset All Buttons":
+		{
+			"menu":"Reset Buttons",
+			"callback":"resetAllButtons",
+			"description":"Reset all buttons to their default state."
+		},
+		"Reset Main Buttons":
+		{
+			"menu":"Reset Buttons",
+			"callback":"resetMainButtons",
+			"description":"Reset all main buttons to their default state."
+		},
+		"Reset Side Buttons":
+		{
+			"menu":"Reset Buttons",
+			"callback":"resetSideButtons",
+			"description":"Reset all side buttons to their default state."
+		},
+		"Reset Bottom Buttons":
+		{
+			"menu":"Reset Buttons",
+			"callback":"resetBottomButtons",
+			"description":"Reset all bottom buttons to their default state."
+		},
+		"Display Logo":
+		{
+			"menu":"",
+			"callback":"displayLogoNow",
+			"description":"Display the logo."
+		}
+	}
 }

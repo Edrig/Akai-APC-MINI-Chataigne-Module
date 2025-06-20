@@ -1,433 +1,669 @@
-///////////////////////
-////////Functions
-///////////////////////
+var faderNotes = [ 48, 49, 50, 51, 52, 53, 54, 55, 56]; //CC
+var buttonNotes = [
+	[56, 57, 58, 59, 60, 61, 62, 63],
+	[48, 49, 50, 51, 52, 53, 54, 55],
+	[40, 41, 42, 43, 44, 45, 46, 47],
+	[32, 33, 34, 35, 36, 37, 38, 39],
+	[24, 25, 26, 27, 28, 29, 30, 31],
+	[16, 17, 18, 19, 20, 21, 22, 23],
+	[ 8, 9, 10, 11, 12, 13, 14, 15],
+	[ 0, 1, 2, 3, 4, 5, 6, 7],
+]; // Notes
+var sideButtonNotes = 	[82, 83, 84, 85, 86, 87, 88, 89];
+var bottomButtonNotes = [64, 65, 66, 67, 68, 69, 70, 71, 98];
 
-/**
- * Sets the LED color for a specific pad on the Akai APC Mini.
- *
- * @param {number} pad - The pad number to set the LED for.
- * @param {number[]} colors - An array of color values, where the first element is used for the LED.
- */
-function setLed(pad, colors)
-{
-	script.log(" -- setLed for "+pad);
-	local.sendNoteOn(1, pad, colors[0]);
-}
+var noteValueObj = [];
+var noteColorObj = [];
+var notePulsingObj = [];
+var ccValueObj = [];
 
-/**
- * Converts a MIDI pitch value to grid notation (e.g., "8.1", "7.2").
- *
- * Example: For pitch 0, it returns "8.1"; for pitch 63, it returns "1.8".
- * 
- * @param {number} pitch - The MIDI note number (0-63).
- * @returns {string} The grid notation corresponding to the pitch. (1.1-8.8)
- */
- function convertPitchToPadgrid(pitch) 
- {
-	pitch = parseInt(pitch);
- 	row = parseInt(8 - Math.floor(pitch / 8));	// Calculate the row (1-8)
- 	column = (pitch % 8) + 1; 			// Calculate the column (1-8)
-	gridNotation = row + "." + column;			// Format as "row.column"
+var faderValueObj = [];
+var buttonValueObj = [];
 
-	script.log(" -- convertPitchToPadgrid: pitch "+pitch+" as row "+row+" and col "+column+",to grid notation:"+gridNotation);
- 	return gridNotation;
- }
+var colorParameterObj = [];
+var pulsingParameterObj = [];
 
+var pulsingSteps = 3;
+// var pulsingSteps = 128;
+var pulsingTable = [0, 1];
+// var pulsingTable = [0, 13, 26, 40, 53, 67, 80, 93, 107, 120, 134, 147, 161, 174, 187, 201, 214, 228, 255, 255, 252, 250, 247, 245, 243, 240, 238, 236, 233, 231, 229, 226, 224, 222, 219, 217, 215, 212, 210, 208, 205, 203, 201, 198, 196, 194, 191, 189, 187, 184, 182, 180, 177, 175, 173, 170, 168, 166, 163, 161, 159, 156, 154, 152, 149, 147, 145, 142, 140, 138, 135, 133, 131, 128, 126, 123, 121, 119, 116, 114, 112, 109, 107, 105, 102, 100, 98, 95, 93, 91, 88, 86, 84, 81, 79, 77, 74, 72, 70, 67, 65, 63, 60, 58, 56, 53, 51, 49, 46, 44, 42, 39, 37, 35, 32, 30, 28, 25, 23, 21, 18, 16, 14, 11, 9, 7, 4, 0];
+var pulsingRate = 0.20;
+var previousStep = -1;
 
-///////////////////////
-////////Commands
-///////////////////////
-/**
- * Sets the color of a specified pad on the Akai APC Mini controller.
- *
- * The function maps the pad index (0-63) to a corresponding pad identifier string,
- * then sets the pad color based on the provided color code.
- *
- * @param {number|string} pad - The index of the pad (0-63) to set the color for.
- * @param {number[]} colors - An array where the first element is a color code:
- *   0 = Black,
- *   1 = Green,
- *   2 = Green_Blink,
- *   3 = Red,
- *   4 = Red_Blink,
- *   5 = Yellow,
- *   6 = Yellow_Blink.
- */
-function setPadColor(pad, colors)
-{
-	script.log(" -- setPadColor for "+ pad);
+var displayLogoSwitch = false;
+var frameRate = 8; //FPS frames per second
+var frameCount = 0;
+var frameCoordinate = [0,0];
+var logoColorObj = [
+	[5, 1, 1, 1, 1, 1, 1, 5], // 0
+	[1, 5, 1, 1, 1, 1, 5, 1], // 1
+	[1, 1, 5, 1, 1, 5, 1, 1], // 2
+	[1, 1, 1, 5, 5, 1, 1, 1], // 3
+	[1, 1, 1, 5, 5, 1, 1, 1], // 4
+	[1, 1, 5, 1, 1, 5, 1, 1], // 5
+	[1, 5, 1, 1, 1, 1, 5, 1], // 6
+	[5, 1, 1, 1, 1, 1, 1, 5], // 7
+]; 
+var logoFrameDiff = [
+	[[3, 3, 5],[3, 4, 5],[4, 3, 5],[4, 4, 5]], // Curent frame Number with Differences frome base frame
+	[[2, 2, 5],[2, 5, 5],[5, 2, 5],[5, 5, 5]],
+	[[1, 1, 5],[1, 6, 5],[6, 1, 5],[6, 6, 5]],
+	[[0, 0, 5],[0, 7, 5],[7, 0, 5],[7, 7, 5]],
 
-	//setLed(pad, color[0]);
-	var i = parseInt(pad);
-	script.log(" -- setPadColor a: Pitch "+i+"/ Color "+colors[0]);
-	x = colors[0];
+	[[3, 3, 1],[3, 4, 1],[4, 3, 1],[4, 4, 1]], // Curent frame Number with Differences frome base frame
+	[[2, 2, 1],[2, 5, 1],[5, 2, 1],[5, 5, 1]],
+	[[1, 1, 1],[1, 6, 1],[6, 1, 1],[6, 6, 1]],
+	[[0, 0, 1],[0, 7, 1],[7, 0, 1],[7, 7, 1]],
 
-	i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
+	[[3, 3, 3],[3, 4, 3],[4, 3, 3],[4, 4, 3]], // Curent frame Number with Differences frome base frame
+	[[2, 2, 3],[2, 5, 3],[5, 2, 3],[5, 5, 3]],
+	[[1, 1, 3],[1, 6, 3],[6, 1, 3],[6, 6, 3]],
+	[[0, 0, 3],[0, 7, 3],[7, 0, 3],[7, 7, 3]],
 
+	[],
+	[],
+	[],
 
-	script.log(" -- setPadColor b: Pitch "+i+"/ Color "+colors[0]);
+	[[0, 0, 5],[7, 7, 5],[5, 0, 5],[3, 7, 5]],
+	[[0, 1, 5],[7, 6, 5],[5, 1, 5],[3, 6, 5]],
+	[[0, 2, 5],[7, 5, 5],[5, 2, 5],[3, 5, 5]],
+	[[0, 3, 5],[7, 4, 5],[5, 3, 5],[3, 4, 5]],
+	[[0, 4, 5],[7, 3, 5],[5, 4, 5],[3, 3, 5]],
+	[[0, 5, 5],[7, 2, 5],[5, 5, 5],[3, 2, 5]],
+	[[0, 6, 5],[7, 1, 5],[5, 6, 5],[3, 1, 5]],
+	[[0, 7, 5],[7, 0, 5],[5, 7, 5],[3, 0, 5]],
 
+	[[1, 0, 5],[6, 7, 5],[4, 0, 5],[2, 7, 5]],
+	[[1, 1, 5],[6, 6, 5],[4, 1, 5],[2, 6, 5]],
+	[[1, 2, 5],[6, 5, 5],[4, 2, 5],[2, 5, 5]],
+	[[1, 3, 5],[6, 4, 5],[4, 3, 5],[2, 4, 5]],
+	[[1, 4, 5],[6, 3, 5],[4, 4, 5],[2, 3, 5]],
+	[[1, 5, 5],[6, 2, 5],[4, 5, 5],[2, 2, 5]],
+	[[1, 6, 5],[6, 1, 5],[4, 6, 5],[2, 1, 5]],
+	[[1, 7, 5],[6, 0, 5],[4, 7, 5],[2, 0, 5]],
 
-	if (x == 0)
-	{
-		local.values.padColors.getChild("Pad "+ i).set("Black");
-	}
-	else if (x == 1)
-	{
-		local.values.padColors.getChild("Pad "+i).set("Green");
-	}
-	else if (x == 2)
-	{
-		local.values.padColors.getChild("Pad "+i).set("Green_Blink");
-	}
-	else if (x == 3)
-	{
-		local.values.padColors.getChild("Pad "+i).set("Red");	
-	}
-	else if (x == 4)
-	{
-		local.values.padColors.getChild("Pad "+i).set("Red_Blink");
-	}
-	else if (x == 5)
-	{
-		local.values.padColors.getChild("Pad "+i).set("Yellow");
-	}
-	else if (x == 6)
-	{
-		local.values.padColors.getChild("Pad "+i).set("Yellow_Blink");
-	}
-}
+	[[0, 1, 0],[7, 6, 0],[0, 4, 0],[7, 2, 0]],
+	[[1, 1, 0],[6, 6, 0],[1, 4, 0],[6, 2, 0]],
+	[[2, 1, 0],[5, 6, 0],[2, 4, 0],[5, 2, 0]],
+	[[3, 1, 0],[4, 6, 0],[3, 4, 0],[4, 2, 0]],
+	[[4, 1, 0],[3, 6, 0],[4, 4, 0],[3, 2, 0]],
+	[[5, 1, 0],[2, 6, 0],[5, 4, 0],[2, 2, 0]],
+	[[6, 1, 0],[1, 6, 0],[6, 4, 0],[1, 2, 0]],
+	[[7, 1, 0],[0, 6, 0],[7, 4, 0],[0, 2, 0]],
 
-
-/**
- * Sets the color state of a button (pad) on the Akai APC Mini.
- *
- * Depending on the pad index, this function maps the pad to a specific button identifier,
- * then sets its color state ("Off", "On", or "Blink") based on the provided color value.
- *
- * @param {number|string} pitch - The pad index / MIDI pitch or identifier to set the color for.
- * @param {number[]} colors - An array where the first element determines the color state:
- *   0 = "Off", 1 = "On", 2 = "Blink".
- */
-function setButtonColor(pitch, colors)
-{
-	script.log(" -- set Button Color");
-	if(pitch >= 64 && pitch <= 71 || pitch >= 82 && pitch <= 89){ // Check if button is a button
-		//setLed(pad, color[0]);
-		pitch = parseInt(pitch);
-		script.log(" -- setButtonColor a: Pitch "+pitch+"/ Color "+colors[0]);
-
-		// Convert the pad index / MIDI pitch to button notation (e.g., "R1", "F2") of GUI
-		if (pitch >= 82 && pitch<= 89) {	// Button R1 to R8
-				button = pitch-81;
-				button = "R"+button;
-				script.log(" -- setButtonColor b1: Button "+button+"/ Color "+colors[0]);
-		}
-		if (pitch >= 64 && pitch <= 71) {	// Button F1 to F8
-				button = pitch-63;
-				button = "F"+button;
-				script.log(" -- setButtonColor b2: Button "+button+"/ Color "+colors[0]);
-		}
-
-		script.log(" -- setButtonColor c: Button "+button+"/ Color "+colors[0]);
-
-		x = colors[0];
-		if (x == 0)
-		{
-			local.values.buttonColors.getChild("Button "+button).set("Off");
-		}
-		else if (x == 1)
-		{
-			local.values.buttonColors.getChild("Button "+button).set("On");
-		}
-		else if (x == 2)
-		{
-			local.values.buttonColors.getChild("Button "+button).set("Blink");
-		}
-	};
-}
+	[[0, 0, 0],[7, 7, 0],[0, 5, 0],[7, 3, 0]],
+	[[1, 0, 0],[6, 7, 0],[1, 5, 0],[6, 3, 0]],
+	[[2, 0, 0],[5, 7, 0],[2, 5, 0],[5, 3, 0]],
+	[[3, 0, 0],[4, 7, 0],[3, 5, 0],[4, 3, 0]],
+	[[4, 0, 0],[3, 7, 0],[4, 5, 0],[3, 3, 0]],
+	[[5, 0, 0],[2, 7, 0],[5, 5, 0],[2, 3, 0]],
+	[[6, 0, 0],[1, 7, 0],[6, 5, 0],[1, 3, 0]],
+	[[7, 0, 0],[0, 7, 0],[7, 5, 0],[0, 3, 0]],
 	
 
- /**
- * Resets the color of all pads to the default color (0).
- * Iterates through all pad indices (0 to 62) and sets their color to 0.
- * Logs the reset action for debugging purposes.
- */
-function resetColors()
-{
-	script.log(" -- reset color pad");
-	// Reset pad colors to default (0)
-	for(var i=0;i<=63;i++) 
+]; 
+var frame =[];
+var logoBaseColor = 0; // Hinergrundfarbe Schwarz / Off
+
+// ------ System Functions ------
+
+function softResetAll() {
+	for (row = 0; row < 8; row++)
+	{
+		for (col = 0; col < 8; col ++)
 		{
-			local.sendNoteOn(1, i, 0);
-			setPadColor(i, [0]);
+			setPulsingByPosition(row+1, col+1, false);
 		}
-	script.log(" -- reset color buttons F");
-	// Reset button colors for F1 to F8
-	for(var i=64;i<=71;i++) 
-		{
-			local.sendNoteOn(1, i, 0);
-			setButtonColor(i, [0]);
-		}
-	script.log(" -- reset color buttons R");
-	// Reset button colors for R1 to R8
-	for(var i=82;i<=89;i++) 
-		{
-			local.sendNoteOn(1, i, 0);
-			setButtonColor(i, [0]);
-		}
+	}
 }
 
- /**
- * Resets the color of all pads to the default color (0).
- * Iterates through all pad indices (0 to 62) and sets their color to 0.
- * Logs the reset action for debugging purposes.
- */
-function resetColorsPads()
+// ------ Feedback Functions ------
+
+function displayLogo()
 {
-	script.log(" -- reset color pad");
-	// Reset pad colors to default (0)
-	for(var i=0;i<=63;i++) 
-		{
-			local.sendNoteOn(1, i, 0);
-			setPadColor(i, [0]);
+	// script.log(" -- Diplay Logo: Starting Frame: " + frameCount);
+	//Main Buttons
+	var currentFrameDiff = logoFrameDiff[frameCount];
+	// script.log(" -- Diplay Logo: currentFrameDiff " + currentFrameDiff);
+
+	//Make Frame
+	for(var row=0; row<8; row++){ // Go thoru logocolors and push them in the frame, manipulate the colors if you want per col and row
+		for(var col=0; col<8; col++){
+
+			for (var currFrameDiffPixel = 0; currFrameDiffPixel < currentFrameDiff.length; currFrameDiffPixel++) {
+				// script.log(" -- Diplay Logo: MakeFrame " + " " + row + " " + col + " | " + currentFrameDiff[currFrameDiffPixel][0] + " " + currentFrameDiff[currFrameDiffPixel][1] + " " + currentFrameDiff[currFrameDiffPixel][2]);
+				if (currentFrameDiff[currFrameDiffPixel][0] == row && currentFrameDiff[currFrameDiffPixel][1] == col) {
+					// script.log(" -- Diplay Logo: Frame Pixel" + " " + row + " " + col + " | " + frame[row][col]);
+					// script.log(" -- Diplay Logo: MakeFrame add Pixel" + " " + row + " " + col + " | " + currentFrameDiff[currFrameDiffPixel][2]);
+
+					frame[row][col] = currentFrameDiff[currFrameDiffPixel][2];
+
+					// script.log(" -- Diplay Logo: MakeFrame Pixel" + " " + row + " " + col + " | " + frame[row][col]);
+				}
+			}
+		
 		}
+	}
+
+	//Draw Frame
+	for(var row=0; row<8; row++){
+		for(var col=0; col<8; col++){
+			// script.log(" -- Diplay Logo: Draw Frame " + " " + row + " " + col + " | " + frame[row][col]);
+			sendButtonColor([row, col], frame[row][col]);
+		}
+	}
+
+	if(logoFrameDiff.length == frameCount){
+		script.log(" -- Diplay Logo: Finished " + frameCount);
+		frameCount = 0;
+		displayLogoSwitch = false;
+		softResetAll();
+		resync();
+		for(var row=0; row<8; row++){
+			for(var col=0; col<8; col++){
+				frame[row][col] = logoBaseColor;
+				// script.log(" -- Diplay Logo: init Logo Frame " + " " + row + " " + col + " | " + frame[row][col]);
+			}
+		}
+	}
+
+	frameCount++;
 }
 
- /**
- * Resets the color of all pads to the default color (0).
- * Iterates through all pad indices (0 to 62) and sets their color to 0.
- * Logs the reset action for debugging purposes.
- */
-function resetColorsButtonsF()
+function sendButtonColorBrightness(id, color, brightness)
 {
-	script.log(" -- reset color buttons F");
-	// Reset button colors for F1 to F8
-	for(var i=64;i<=71;i++) 
-		{
-			local.sendNoteOn(1, i, 0);
-			setButtonColor(i, [0]);
-		}
-}
- /**
- * Resets the color of all pads to the default color (0).
- * Iterates through all pad indices (0 to 62) and sets their color to 0.
- * Logs the reset action for debugging purposes.
- */
-function resetColorsButtonsR()
-{
-	script.log(" -- reset color buttons R");
-	// Reset button colors for R1 to R8
-	for(var i=82;i<=89;i++) 
-		{
-			local.sendNoteOn(1, i, 0);
-			setButtonColor(i, [0]);
-		}
-}
-///////////////////////
-//////////Events
-///////////////////////	
+	var note = buttonNotes[id[0]][id[1]];
 
-/**
- * Handles changes to a module parameter.
- *
- * Logs the parameter change event and its new value.
- *
- * @param {Object} param - The parameter object that has changed.
- * @param {Function} param.get - Function to retrieve the new value of the parameter.
- */
+	// newColor[1] = Math.round((color[1] * intensity) / 255);
+	// var r = Math.round(((color[0] * 127) * brightness) / 255);
+	// var g = Math.round(((color[1] * 127) * brightness) / 255);
+	// var b = Math.round(((color[2] * 127) * brightness) / 255);
+
+	// var rMSBLSB = calcMSBLSB(r);
+	// var gMSBLSB = calcMSBLSB(g);
+	// var bMSBLSB = calcMSBLSB(b);
+
+	// script.log("Set Color for note " + note + " to rgb:{"+r+","+g+","+b+"} Intensity: "+brightness);
+	// local.sendSysex(0x47, 0x7F, 0x4F, 0x24, 0x00, 0x08, note, note, rMSBLSB[0], rMSBLSB[1], gMSBLSB[0], gMSBLSB[1], bMSBLSB[0], bMSBLSB[1]);
+	if (brightness < 0.5) {
+		local.sendNoteOn(1, note, 0);
+		util.delayThreadMS(1);
+	} else if (brightness > 0.5) {
+		local.sendNoteOn(1, note, color);
+		util.delayThreadMS(1);
+	}
+}
+
+
+function sendButtonColor(id, color)
+{
+	var note = buttonNotes[id[0]][id[1]];
+	// var r = Math.round(color[0] * 127);
+	// var g = Math.round(color[1] * 127);
+	// var b = Math.round(color[2] * 127);
+
+	// var rMSBLSB = calcMSBLSB(r);
+	// var gMSBLSB = calcMSBLSB(g);
+	// var bMSBLSB = calcMSBLSB(b);
+
+	// script.log("Set Color for note " + note + " to rgb:{"+r+","+g+","+b+"}");
+	// local.sendSysex(0x47, 0x7F, 0x4F, 0x24, 0x00, 0x08, note, note, rMSBLSB[0], rMSBLSB[1], gMSBLSB[0], gMSBLSB[1], bMSBLSB[0], bMSBLSB[1]);
+	local.sendNoteOn(1, note, color);
+	util.delayThreadMS(1);
+}
+
+function sendButton(side, index, state)
+{
+	if (side)
+	{
+		var note = sideButtonNotes[index];
+		local.sendNoteOn(0, note, state);
+	}
+	else
+	{
+		var note = bottomButtonNotes[index];
+		local.sendNoteOn(0, note, state);
+	}
+}
+// ---- User Commands ----
+
+function resendColors()
+{
+	for(var i = 0; i < 8; i++)
+	{
+		for(var j = 0; j < 8; j++)
+		{
+			var color = colorParameterObj[i][j].get();
+			sendButtonColor([i,j], color);
+		}
+	}
+}
+
+function resync()
+{
+	// Main Buttons
+	for (var row = 0; row < 8; row++)
+	{
+		for (var col = 0; col < 8; col ++)
+		{
+			var color = colorParameterObj[row][col].get();
+			var pulsing = pulsingParameterObj[row][col].get();
+
+			sendButtonColor([row, col], color);
+			util.delayThreadMS(5);
+		}
+	}
+
+	// Other Buttons
+	for (var i = 0; i < 8; i++)
+	{
+		// Side Buttons
+		var value = colorParameterObj[i][8].get();
+		sendButton(true, i, value);
+		util.delayThreadMS(5);
+
+		// Bottom Buttons
+		var value = colorParameterObj[8][i].get();
+		sendButton(false, i, value);
+		util.delayThreadMS(5);
+	}
+}
+
+// ---- Module Common Functions ----
+
+function init()
+{
+	script.log("Setting up Akai APC mini Module");
+	// init variable
+	for (var i = 0; i < 9; i++) 
+	{
+		buttonValueObj[i] = [];
+		colorParameterObj[i] = [];
+		pulsingParameterObj[i] = [];
+		frame[i] = [];
+	}
+
+	// Faders
+	for (var i = 0; i < 9; i++) {
+		faderValueObj[i] = local.values.faders.getChild("fader" + (i+1));
+		ccValueObj[faderNotes[i]] = local.values.faders.getChild("fader" + (i+1));
+	}
+
+	// Main Buttons
+    for (var i = 0; i < 8; i++) 
+	{
+		for (var column = 0; column < 8; column++) 
+		{
+			buttonValueObj[i][column] = local.values.getChild("Main Buttons").getChild("button" + (i + 1) + (column + 1) + "");
+			colorParameterObj[i][column] = local.parameters.colors.getChild("Main Buttons").getChild("button" + (i + 1) + (column + 1) + "");
+			pulsingParameterObj[i][column] = local.parameters.pulsing.getChild("Main Buttons").getChild("button" + (i + 1) + (column + 1) + "");
+
+			var note = buttonNotes[i][column];
+			noteValueObj[note] = local.values.getChild("Main Buttons").getChild("button" + (i + 1) + (column + 1) + "");
+			noteColorObj[note] = local.parameters.colors.getChild("Main Buttons").getChild("button" + (i + 1) + (column + 1) + "");
+			notePulsingObj[note] = local.parameters.pulsing.getChild("Main Buttons").getChild("button" + (i + 1) + (column + 1) + "");
+
+		}
+    }
+
+	// Side Buttons
+    for (var i = 0; i < 8; i++) 
+	{
+        buttonValueObj[i][8] = local.values.getChild("Side Buttons").getChild("sideButton" + (i + 1));
+        colorParameterObj[i][8] = local.parameters.colors.getChild("Side Buttons").getChild("sideButton" + (i + 1));
+
+		var note = sideButtonNotes[i];
+        noteValueObj[note] = local.values.getChild("Side Buttons").getChild("sideButton" + (i + 1));
+        noteColorObj[note] = local.parameters.colors.getChild("Side Buttons").getChild("sideButton" + (i + 1));
+    }
+
+	// Bottom Buttons
+    for (var i = 0; i < 9; i++) 
+	{
+        buttonValueObj[8][i] = local.values.getChild("Bottom Buttons").getChild("bottomButton" + (i + 1) + "");
+
+		if (i < 8)
+        colorParameterObj[8][i] = local.parameters.colors.getChild("Bottom Buttons").getChild("bottomButton" + (i + 1) + "");
+
+		var note = bottomButtonNotes[i];
+        noteValueObj[note] = local.values.getChild("Bottom Buttons").getChild("bottomButton" + (i + 1) + "");
+
+		if (i < 8)
+			noteColorObj[note] = local.parameters.colors.getChild("Bottom Buttons").getChild("bottomButton" + (i + 1) + "");
+    }
+
+	// Logo Frame
+	for(var row=0; row<8; row++){
+		for(var col=0; col<8; col++){
+			frame[row][col] = logoBaseColor;
+			// script.log(" -- Diplay Logo: init Logo Frame " + " " + row + " " + col + " | " + frame[row][col]);
+		}
+	}
+
+
+	if (local.parameters.isConnected) {
+		displayLogoSwitch = true;
+	}
+}
+
+
+// ------ Chataigne Events ------
+
+var midiDeviceOutLast;
+var resyncReady = false;
+
+function moduleValueChanged(value) {
+}
+
 function moduleParameterChanged(param)
 {
-	script.log(" -- param change");
-  	script.log(" -- " + param.name + " param changed, new value: " + param.get());
-}
+	// script.log("Parameter Changed: " + param.name + " Parent: " + param.getParent().name + " GrandParent: " + param.getParent().getParent().name + " Value: " + param.get());
 
-/**
- * Handles changes to module values, specifically for "padColors" and "buttonColors" parents.
- * Depending on the value's parent and name, calculates the corresponding pad/button ID,
- * retrieves the new value, and sends a MIDI Note On message to update the LED state.
- *
- * @param {Object} value - The value object that has changed.
- * @param {string} value.name - The name of the value, used to determine pad/button and index.
- * @param {function} value.getParent - Returns the parent object of the value.
- * @param {function} value.get - Returns the new value as an array [velocity, ...].
- */
-function moduleValueChanged(value) {
-	script.log(" -- value change");
 
-  script.log(value.name + " value changed, new value: " + value);
-  	if(value.getParent().name == "padColors")
+	if (param.name == "devices") {
+		var midiOutDevice = param.get()[1];
+		if (param.get()[1] != midiDeviceOutLast) {
+			midiDeviceOutLast = midiOutDevice;
+
+			if (midiOutDevice) {
+				script.log("New Midi out Device detected");
+				displayLogoSwitch = true;
+				// resync();
+			}
+		}
+	}
+
+
+	// Color Feedback
+	if(param.getParent().getParent().name == "colors")
 	{
-		script.log(" -- value change : padColors " + value.name.substring(0, 7));
+		var color = param.get();
+		// script.log("color Value: "+color);
 
-		script.log(" -- Value Change: " + value.name.substring(3, 4));
-		script.log(" -- Value Change: " + value.name.substring(4, 5));
-
-
-		if(value.name.substring(3, 4) == "8"){
-			var id = parseInt(value.name.substring(4, 5)) - 1 ;
+		if(param.getParent().name == "mainButtons")
+		{
+			var id = [(parseInt(param.name.charAt(6))-1), (parseInt(param.name.charAt(7))-1)];
+			script.log(color);
+			sendButtonColor(id, color);
 		}
-		if(value.name.substring(3, 4) == "7"){
-			var id = parseInt(value.name.substring(4, 5)) + 7 ;
+		else if(param.getParent().name == "sideButtons")
+		{
+			var index = parseInt(param.name.charAt(10)) - 1;
+			sendButton(true, index, param.get());
 		}
-		if(value.name.substring(3, 4) == "6"){
-			var id = parseInt(value.name.substring(4, 5)) + 15 ;
+		else if(param.getParent().name == "bottomButtons")
+		{
+			var index = (parseInt(param.name.charAt(12)) - 1);
+			// script.log(index);
+			sendButton(false, index, param.get());
 		}
-		if(value.name.substring(3, 4) == "5"){
-			var id = parseInt(value.name.substring(4, 5)) + 23 ;
-		}
-		if(value.name.substring(3, 4) == "4"){
-			var id = parseInt(value.name.substring(4, 5)) + 31 ;
-		}
-		if(value.name.substring(3, 4) == "3"){
-			var id = parseInt(value.name.substring(4, 5)) + 39 ;
-		}
-		if(value.name.substring(3, 4) == "2"){
-			var id = parseInt(value.name.substring(4, 5)) + 47 ;
-		}
-		if(value.name.substring(3, 4) == "1"){
-			var id = parseInt(value.name.substring(4, 5)) + 55 ;
-		}
-
-		script.log(" -- value change : padColors", id);
-		var val = value.get();
-		script.log(" -- value change : "+id+"/"+val[0]+"/"+val[1]);
-		//setLed(id, val[0]);
-		local.sendNoteOn(1, id, val[0]);
-
 	}
-	else if(value.getParent().name == "buttonColors")
+
+	// Pulsing
+	if(param.getParent().getParent().name == "pulsing")
 	{
-		script.log(" -- value change : button Colors", value.name.substring(0, 9));
 
-		script.log(" -- Value Change: ", value.name.substring(6, 7));
-		script.log(" -- Value Change: ", value.name.substring(7, 8));
-
-
-		if(value.name.substring(6, 7) == "F"){
-			var id = parseInt(value.name.substring(7, 8)) + 63;
-			var val = value.get();
-			script.log(" -- value change a: "+value.name.substring(7, 8)+"/"+val[0]+"/"+val[1]);
-			//setLed(id, val[0]);
-			local.sendNoteOn(1, id, val[0]);
+		// if pulsing just got turned of send full brightness color again
+		if (param.get() == false){
+			if(param.getParent().name == "mainButtons")
+			{
+				// var id = [(parseInt(param.name.charAt(6))-1), (parseInt(param.name.charAt(7))-1)];
+				var id = [(parseInt(param.name.charAt(6))-1), (parseInt(param.name.charAt(7))-1)];
+				var color = colorParameterObj[id[0]][id[1]].get();
+				sendButtonColor(id, color);
+			}
 		}
+	}
 
-		else if(value.name.substring(6, 7) == "R"){
-			var id = parseInt(value.name.substring(7, 8)) + 81;
-			var val = value.get();
-			script.log(" -- value change b: "+value.name.substring(7, 8)+"/"+val[0]+"/"+val[1]);
-			//setLed(id, val[0]);
-			local.sendNoteOn(1, id, val[0]);
+	// Pulsing Control
+	if(param.name == "pulseRate")
+	{
+		pulsingRate = param.get();
+		script.log("Pulsing Rate changed to: " + pulsingRate);
+	}
+	if(param.name == "pulseSpeed")
+	{
+		pulsingSpeed = param.get();
+		pulsingSteps = pulsingSpeed;
+		script.log("Pulsing Speed changed to: " + pulsingSpeed);
+	}
+}
+
+function update(delta)
+{
+	if (!local.parameters.isConnected) return;
+
+	if (resyncReady)
+	{
+		resyncReady = false;
+		resync();
+	}
+
+	var time = util.getTime(); // time in seconds ( 28772.9140625, s, ms)
+	// script.log(" -- Update Time: " + time);
+
+	//Logo Update
+	var ms = Math.round(((time*10000)));
+	//script.log(" -- displayLogo ms: " + ms);
+	var frameSwitch = Math.round((ms*(frameRate*1e-4))); // gives 0 or 1 to trigger next frame
+	// script.log(" -- Update FrameSwitch: " + frameSwitch4);
+
+	if (displayLogoSwitch)	
+	{
+		if(frameSwitch !== previousFrameSwitch){
+			// script.log(" -- displayLogo Frame: " + frameSwitch);
+			displayLogo();
 		}
-
 	}
+	previousFrameSwitch = frameSwitch;
+
+
+	//Pulsing Update
+	var step = Math.round(((time % pulsingRate) / pulsingRate) * pulsingSteps);
+	if (step !== previousStep)
+	{
+		var intensity = pulsingTable[step];
+		// script.log("Step: "+step+" intensity: "+intensity);
+
+		for (var i = 0; i < 8; i ++)
+		{
+			for (var j = 0; j < 8; j ++)
+			{
+				// script.log(i + " " + j);
+				if (pulsingParameterObj[i][j].get())
+				{
+					// scale color with intensity
+					var color = colorParameterObj[i][j].get();
+					sendButtonColorBrightness([i,j], color, intensity);
+				}
+			}
+		}
+	}
+	previousStep = step;
 }
 
-/**
- * Handles a MIDI Note On event for the Akai APC Mini controller.
- *
- * Depending on the pitch value, this function updates the state of buttons or pads
- * in the local.values object to reflect the received note.
- *
- * - Pitches 64-71: Set "Button F1" to "Button F8".
- * - Pitches 82-89: Set "Button R1" to "Button R8".
- * - Pitches 0-63: Set "Pad X.Y" where X is the row (1-8) and Y is the column (1-8).
- * - Pitch 98: Set "Square" button.
- *
- * @param {number} channel - The MIDI channel number (0-15).
- * @param {number} pitch - The MIDI note number (0-127).
- * @param {number} velocity - The velocity of the note (0-127).
- */
-function noteOnEvent(channel, pitch, velocity)
+
+// ----- Midi Events ------
+
+function noteOnEvent(channel, note, velocity)
 {
-	script.log(" -- note On event");
+	if (channel != 1) return;
 
-	script.log(" -- Note on received "+channel+", "+pitch+", "+velocity);
-	i = pitch;
-	if(i >= 64 && i <= 71){
-		i = i-63;
-    	local.values.buttons.getChild("Button F" + i).set(1);
-	}
-	else if (i >= 82 && i<= 89) {
-		i = i-81;
-    	local.values.buttons.getChild("Button R" + i).set(1);
-	}
-	else if (i >= 0 && i<= 63) {
-		
-		i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
-
-    	local.values.pads.getChild("Pad " + i).set(1);
-	}
-	else if (i == 98) {
-		i = i-0;
-    	local.values.buttons.getChild("Square").set(1);
+	var button = noteValueObj[note];
+	if (!!button)
+	{
+		button.set((velocity==127));
 	}
 }
 
 
-/**
- * Handles a MIDI Note Off event for the Akai APC Mini controller.
- *
- * Depending on the pitch value, this function updates the corresponding button or pad state
- * in the local.values object to indicate the note has been released.
- *
- * @param {number} channel - The MIDI channel number (0-15) on which the note off event was received.
- * @param {number} pitch - The MIDI note number (0-127) indicating which note was released.
- * @param {number} velocity - The velocity value associated with the note off event (usually 0).
- */
-function noteOffEvent(channel, pitch, velocity)
+function noteOffEvent(channel, note, velocity)
 {
-		script.log(" -- note Off event");
+	if (channel != 1) return;
 
-	script.log(" -- Note off received "+channel+", "+pitch+", "+velocity);
-	var i = pitch;
-	if(i >= 64 && i <= 71){
-		i = i-63;
-    	local.values.buttons.getChild("Button F" + i).set(0);
-	}
-	else if (i >= 82 && i<= 89) {
-		i = i-81;
-    	local.values.buttons.getChild("Button R" + i).set(0);
-	}
-	else if (i >= 0 && i<= 63) {
-
-		i = convertPitchToPadgrid(i); // Convert the pad index / MIDI pitch to grid notation (e.g., "8.1", "7.2") of GUI
-
-    	local.values.pads.getChild("Pad " + i).set(0);
-	}
-	else if (i == 98) {
-		i = i-0;
-    	local.values.buttons.getChild("Square").set(0);
+	var button = noteValueObj[note];
+	if (!!button)
+	{
+		button.set(false);
 	}
 }
 
-/**
- * Handles a MIDI Control Change (CC) event by logging the event and updating the corresponding fader value.
- *
- * @param {number} channel - The MIDI channel number on which the CC event was received.
- * @param {number} number - The MIDI CC number (controller number).
- * @param {number} value - The value of the CC event (typically 0-127).
- */
-function ccEvent(channel, number, value)
+
+function ccEvent(channel, note, value)
 {
-		script.log(" -- Control Change Event");
+	if (channel != 1) return;
 
-	script.log(" -- Control Change received "+channel+", "+number+", "+value);
-	i = number-47;
-	local.values.faders.getChild("Fader " + i).set(value);
+	var fader = ccValueObj[note];
+	if (!!fader)
+	{
+		fader.set(value/127);
+	}
 }
 
-/**
- * Handles a System Exclusive (SysEx) MIDI event.
- *
- * Logs the receipt of a SysEx message and its length in bytes.
- *
- * @param {Uint8Array|Array<number>} data - The SysEx message data as an array of bytes.
- */
+
 function sysExEvent(data)
 {
-	script.log(" -- sysEx Message received, "+data.length+" bytes :");
+	script.log("Sysex Message received, "+data.length+" bytes :");
 }
 
 
-resetColors();
+// ----- User Functions ------
+function setColorEnum(id, color)
+{
+	var colorObj = colorParameterObj[id[0]][id[1]];
+	if (!!colorObj)
+	{
+		script.log("color Balck");
+		colorObj.set(color);
+	}
+}
+
+function setColorByNote(note, color)
+{
+	var colorObj = noteColorObj[note];
+	if (!!colorObj)
+	{
+		colorObj.set(color);
+	}
+}
+
+function setColorByIndex(index, color)
+{
+	var x = Math.floor(index / 8);
+	var y = index % 8;
+	var colorObj = colorParameterObj[x][y];
+	if (!!colorObj)
+	{
+		colorObj.set(color);
+	}
+}
+
+function setColorByPosition(x, y, color)
+{
+	var colorObj = colorParameterObj[x-1][y-1];
+	if (!!colorObj)
+	{
+		colorObj.set(color);
+	}
+}
+
+function setPulsingEnum(id, pulsing)
+{
+	var pulsingObj = pulsingParameterObj[id[0]][id[1]];
+	if (!!pulsingObj)
+	{
+		pulsingObj.set(pulsing);
+	}
+}
+
+function setPulsingByNote(note, pulsing)
+{
+	var pulsingObj = notePulsingObj[note];
+	if (!!pulsingObj)
+	{
+		pulsingObj.set(pulsing);
+	}
+}
+
+function setPulsingByIndex(index, pulsing)
+{
+	var x = Math.floor(index / 8);
+	var y = index % 8;
+	var pulsingObj = pulsingParameterObj[x][y];
+	if (!!pulsingObj)
+	{
+		pulsingObj.set(pulsing);
+	}
+}
+
+function setPulsingByPosition(x, y, pulsing)
+{
+	var pulsingObj = pulsingParameterObj[x-1][y-1];
+	if (!!pulsingObj)
+	{
+		pulsingObj.set(pulsing);
+	}
+}
+
+function setButtonLed(isBottom, index, state)
+{
+	var obj = isBottom ? colorParameterObj[8][index-1] : colorParameterObj[index-1][8];
+	if (!!obj)
+	{
+		obj.set(state);
+	}
+}
+
+function setButtonLedByNote(note, state)
+{
+	var obj = noteColorObj[note];
+	if (!!obj)
+	{
+		obj.set(state);
+	}
+}
+
+function resetAllButtons()
+{
+	resetMainButtons();
+	resetSideButtons();
+	resetBottomButtons();
+}
+function resetMainButtons()
+{
+		// Main Buttons
+		for (row = 0; row < 8; row++)
+		{
+			for (col = 0; col < 8; col ++)
+			{
+				setPulsingByPosition(row+1, col+1, false);
+				setColorByPosition(row+1, col+1, "Black");
+			}
+		}
+		resyncReady = true;
+}
+function resetSideButtons()
+{
+		// Side Buttons
+		for (i = 0; i < 8; i++)
+		{
+			// Side Buttons
+			setButtonLed(false, i+1, "Off");
+		}
+		resyncReady = true;
+}
+function resetBottomButtons()
+{
+		// Other Buttons
+		for (i = 0; i < 8; i++)
+		{
+			// Bottom Buttons
+			setButtonLed(true, i+1, "Off");
+		}
+		resyncReady = true;
+}
+function displayLogoNow()
+{
+	displayLogoSwitch = true;
+	script.log(" -- Diplay Logo: Switch " + displayLogoSwitch);	
+}
