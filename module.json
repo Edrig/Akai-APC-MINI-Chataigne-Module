@@ -5,8 +5,8 @@
 	
 	"version":"1.0.0",
 	"description":"Special MIDI Module for the APC Mini MIDI Controller",
-	"url":"https://github.com/lenschcode/APC-Mini-mkII-Chataigne-Module",
-	"downloadURL":"https://github.com/lenschcode/APC-Mini-mkII-Chataigne-Module/archive/master.zip",
+	"url":"https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module",
+	"downloadURL":"https://github.com/Edrig/Akai-APC-MINI-Chataigne-Module/archive/master.zip",
 
 	"hasInput":true,
 	"hasOutput":true, 
